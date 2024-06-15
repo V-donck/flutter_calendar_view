@@ -56,3 +56,17 @@ class FullDayHeaderTextConfig {
   final int maxLines;
   final TextOverflow textOverflow;
 }
+
+
+
+class DefaultDivider<T> extends StatelessWidget {
+  const DefaultDivider();
+
+  @override
+  Widget build(BuildContext context) {
+    return Divider(
+      thickness: 1,
+      height: 1,
+    );
+  }
+}

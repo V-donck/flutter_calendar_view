@@ -240,6 +240,9 @@ class WeekView<T extends Object?> extends StatefulWidget {
   /// Flag to keep scrollOffset of pages on page change
   final bool keepScrollOffset;
 
+  /// Builder to build divider between header and week view
+  final DividerBuilder<T>? dividerBuilder;
+
   /// Main widget for week view.
   const WeekView({
     Key? key,
@@ -298,6 +301,7 @@ class WeekView<T extends Object?> extends StatefulWidget {
     this.fullDayHeaderTitle = '',
     this.fullDayHeaderTextConfig,
     this.keepScrollOffset = false,
+    this.dividerBuilder,
   })  : assert(!(onHeaderTitleTap != null && weekPageHeaderBuilder != null),
             "can't use [onHeaderTitleTap] & [weekPageHeaderBuilder] simultaneously"),
         assert((timeLineOffset) >= 0,
@@ -360,6 +364,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
   late WeekNumberBuilder _weekNumberBuilder;
   late FullDayEventBuilder<T> _fullDayEventBuilder;
   late DetectorBuilder _weekDetectorBuilder;
+  late DividerBuilder<T> _dividerBuilder;
   late FullDayHeaderTextConfig _fullDayHeaderTextConfig;
 
   late double _weekTitleWidth;
@@ -559,6 +564,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
                             lastScrollOffset: _lastScrollOffset,
                             scrollListener: _scrollPageListener,
                             keepScrollOffset: widget.keepScrollOffset,
+                            dividerBuilder: _dividerBuilder,
                           ),
                         );
                       },
@@ -663,6 +669,7 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
   void _assignBuilders() {
     _timeLineBuilder = widget.timeLineBuilder ?? _defaultTimeLineBuilder;
     _eventTileBuilder = widget.eventTileBuilder ?? _defaultEventTileBuilder;
+    _dividerBuilder = widget.dividerBuilder ?? _defaultDividerBuilder;
     _weekHeaderBuilder =
         widget.weekPageHeaderBuilder ?? _defaultWeekPageHeaderBuilder;
     _weekDayBuilder = widget.weekDayBuilder ?? _defaultWeekDayBuilder;
@@ -801,6 +808,11 @@ class WeekViewState<T extends Object?> extends State<WeekView<T>> {
         startDuration: startDuration,
         endDuration: endDuration,
       );
+
+  /// Default divider builder. This builder will be used if
+  /// [widget.dividerBuilder] is null
+  Widget _defaultDividerBuilder() =>
+      DefaultDivider();
 
   /// Default view header builder. This builder will be used if
   /// [widget.dayTitleBuilder] is null.

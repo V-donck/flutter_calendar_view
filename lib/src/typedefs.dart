@@ -30,6 +30,8 @@ typedef DetectorBuilder<T extends Object?> = Widget Function({
   required MinuteSlotSize minuteSlotSize,
 });
 
+typedef DividerBuilder<T extends Object?> = Widget Function();
+
 typedef WeekDayBuilder = Widget Function(
   int day,
 );

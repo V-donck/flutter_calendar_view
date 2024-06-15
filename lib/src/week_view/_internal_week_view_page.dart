@@ -25,6 +25,9 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
   /// Dates to display on page.
   final List<DateTime> dates;
 
+  /// Builds divider between header and week view
+  final DividerBuilder<T> dividerBuilder;
+
   /// Builds tile for a single event.
   final EventTileBuilder<T> eventTileBuilder;
 
@@ -169,6 +172,7 @@ class InternalWeekViewPage<T extends Object?> extends StatefulWidget {
     required this.weekNumberBuilder,
     required this.width,
     required this.dates,
+    required this.dividerBuilder,
     required this.eventTileBuilder,
     required this.controller,
     required this.timeLineBuilder,
@@ -275,21 +279,14 @@ class _InternalWeekViewPageState<T extends Object?>
               ],
             ),
           ),
-          Divider(
+          widget.dividerBuilder(),
+         /* Divider(
             thickness: 1,
             height: 1,
-          ),
+          ),*/
           SizedBox(
             width: widget.width,
             child: Container(
-              decoration: BoxDecoration(
-                border: Border(
-                  bottom: BorderSide(
-                    color: widget.hourIndicatorSettings.color,
-                    width: 2,
-                  ),
-                ),
-              ),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
